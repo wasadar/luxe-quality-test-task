@@ -12,7 +12,6 @@
     "part2": "wdio wdio.conf.cucumber.js"
   },
   "dependencies": {
-    "@babel/register": "^7.22.15",
     "@wdio/cucumber-framework": "^8.16.15"
   }
 }

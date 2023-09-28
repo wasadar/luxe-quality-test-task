@@ -36,13 +36,13 @@ class MainPage extends LoginPage {
         return $('#logout_sidebar_link');
     }
 
-    get addBackpackToCartButton () {
-        return $('#add-to-cart-sauce-labs-backpack');
-    }
+    // get addBackpackToCartButton () {
+    //     return $('#add-to-cart-sauce-labs-backpack');
+    // }
 
-    get removeBackpackFromCartButton () {
-        return $('#remove-sauce-labs-backpack');
-    }
+    // get removeBackpackFromCartButton () {
+    //     return $('#remove-sauce-labs-backpack');
+    // }
 
     get cartItemsNumber () {
         return $('.shopping_cart_link .shopping_cart_badge');
@@ -120,6 +120,14 @@ class MainPage extends LoginPage {
 
     getItemPrice (index) {
         return $$('.inventory_item_price')[index].getText();
+    }
+
+    clickItemButton (index) {
+        $$('button.btn_inventory')[index].click();
+    }
+
+    clickItemLink (index) {
+        $$('.inventory_item_label a')[index].click();
     }
 
     async logout () {

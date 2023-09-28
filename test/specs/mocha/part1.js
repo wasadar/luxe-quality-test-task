@@ -54,7 +54,8 @@ describe('Test Task Part 1', () => {
     it('0005', async () => {
         await MainPage.open();
 
-        await MainPage.addBackpackToCartButton.click();
+        // await MainPage.addBackpackToCartButton.click();
+        await MainPage.clickItemButton(0);
 
         await browser.pause(1000);
 
@@ -70,7 +71,8 @@ describe('Test Task Part 1', () => {
         
         expect(itemsNumber1).toEqual(itemsnumber2);
 
-        await MainPage.removeBackpackFromCartButton.click();
+        // await MainPage.removeBackpackFromCartButton.click();
+        await MainPage.clickItemButton(0);
     });
 
     it('0006', async () => {
@@ -137,7 +139,8 @@ describe('Test Task Part 1', () => {
     it('0008', async () => {
         await MainPage.open();
 
-        await MainPage.addBackpackToCartButton.click();
+        // await MainPage.addBackpackToCartButton.click();
+        await MainPage.clickItemButton(0);
 
         await MainPage.backpack.click();
         await MainPage.checkoutButton.click();
@@ -176,5 +179,89 @@ describe('Test Task Part 1', () => {
         error = await MainPage.errorMessage.getText();
 
         expect(error).toEqual('Cart is empty');
+    });
+
+    it('0010', async () => {
+        await MainPage.open();
+
+        await MainPage.clickItemButton(0);
+
+        await MainPage.backpack.click();
+        await MainPage.checkoutButton.click();
+
+        await MainPage.inputLastName.setValue('LastName');
+        await MainPage.inputPostalCode.setValue('606060');
+
+        await MainPage.continueButton.click();
+
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-one.html');
+        const message = await MainPage.errorMessage.getText();
+        expect(message).toEqual('Error: First Name is required');
+    });
+
+    it('0011', async () => {
+        await MainPage.open();
+
+        await MainPage.clickItemButton(0);
+
+        await MainPage.backpack.click();
+        await MainPage.checkoutButton.click();
+
+        await MainPage.inputFirstName.setValue('FirstName');
+        await MainPage.inputPostalCode.setValue('606060');
+
+        await MainPage.continueButton.click();
+
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-one.html');
+        const message = await MainPage.errorMessage.getText();
+        expect(message).toEqual('Error: Last Name is required');
+    });
+
+    it('0012', async () => {
+        await MainPage.open();
+
+        await MainPage.clickItemButton(0);
+
+        await MainPage.backpack.click();
+        await MainPage.checkoutButton.click();
+
+        await MainPage.inputFirstName.setValue('FirstName');
+        await MainPage.inputLastName.setValue('LastName');
+
+        await MainPage.continueButton.click();
+
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-one.html');
+        const message = await MainPage.errorMessage.getText();
+        expect(message).toEqual('Error: Postal Code is required');
+    });
+
+    // There is no such validation on the site.
+    it('0013', async () => {
+        await MainPage.open();
+
+        await MainPage.clickItemButton(0);
+
+        await MainPage.backpack.click();
+        await MainPage.checkoutButton.click();
+
+        await MainPage.inputFirstName.setValue('FirstName');
+        await MainPage.inputLastName.setValue('LastName');
+        await MainPage.inputPostalCode.setValue('NotPostalCode');
+
+        await MainPage.continueButton.click();
+
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-one.html');
+        const message = await MainPage.errorMessage.getText();
+        expect(message).toEqual('Error: Postal Code is invalid');
+    });
+
+    it('0014', async () => {
+        await MainPage.open();
+
+        await browser.pause(1000);
+
+        await MainPage.clickItemLink(0);
+
+        await expect(browser).toHaveUrlContaining('https://www.saucedemo.com/inventory-item.html');
     });
 });

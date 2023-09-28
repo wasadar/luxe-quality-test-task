@@ -112,7 +112,6 @@ export const config = {
     // before running any tests.
     framework: 'cucumber',
     cucumberOpts: {
-        requireModule: ['@babel/register'],
         require: ['./test/specs/cucumber/step_definitions/*.js'],
         format: ['pretty'],
         timeout: 30000,
